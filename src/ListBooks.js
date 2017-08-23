@@ -1,8 +1,20 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 class ListBooks extends Component{
+  static propTypes = {
+    books: PropTypes.array.isRequired
+  }
 
   render() {
+    const {books} = this.props
+    let currentlyReadingBooks = books.filter(b => b.shelf === 'currentlyReading')
+    console.log('currentlyReadingBooks', currentlyReadingBooks)
+    let wantToReadBooks = books.filter(b => b.shelf === 'wantToRead')
+    console.log('wantToReadBooks', wantToReadBooks)
+    let readBooks = books.filter(b => b.shelf === 'read')
+    console.log('readBooks', readBooks)
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -14,6 +26,38 @@ class ListBooks extends Component{
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
+                  {currentlyReadingBooks.map((book) => (
+                    /*
+                    <li key={book.id} className='contact-list-item'>
+                      <div className='contact-avatar' style={{
+                        backgroundImage: `url(${contact.avatarURL})`
+                      }}/>
+                      <div className='contact-details'>
+                        <p>{contact.name}</p>
+                        <p>{contact.email}</p>
+                      </div>
+                      <button onClick={() => onDeleteContact(contact)} className='contact-remove'>Remove</button>
+                      */
+                    <li key={book.id}>
+                      <div className="book">
+                        <div className="book-top">
+                          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
+                          <div className="book-shelf-changer">
+                            <select>
+                              <option value="none" disabled>Move to...</option>
+                              <option value="currentlyReading">Currently Reading</option>
+                              <option value="wantToRead">Want to Read</option>
+                              <option value="read">Read</option>
+                              <option value="none">None</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="book-title">{book.title}</div>
+                        <div className="book-authors">{book.authors.map((author, index) => (<span key={index}>{author}</span>))}</div>
+                      </div>
+                    </li>
+                  ))}
+                /*
                   <li>
                     <div className="book">
                       <div className="book-top">
@@ -49,7 +93,7 @@ class ListBooks extends Component{
                       <div className="book-title">Ender's Game</div>
                       <div className="book-authors">Orson Scott Card</div>
                     </div>
-                  </li>
+                  </li>*/
                 </ol>
               </div>
             </div>
