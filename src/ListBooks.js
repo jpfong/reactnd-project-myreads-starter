@@ -53,7 +53,7 @@ class ListBooks extends Component{
                           </div>
                         </div>
                         <div className="book-title">{book.title}</div>
-                        <div className="book-authors">{book.authors.map((author, index) => (<span key={index}>{author}</span>))}</div>
+                        <div className="book-authors">{book.authors.join()}</div>
                       </div>
                     </li>
                   ))}
