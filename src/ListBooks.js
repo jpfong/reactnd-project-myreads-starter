@@ -1,10 +1,22 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
+// import * as BooksAPI from './BooksAPI'
 
 class ListBooks extends Component{
   static propTypes = {
     books: PropTypes.array.isRequired
+  }
+
+  updateBookShelf = (event, book) => {
+    if (event.target.value !== 'none') {
+      book.shelf = event.target.value
+      const {books} = this.props
+      this.setState({
+        books
+      })
+      // update in DB
+    }
   }
 
   render() {
@@ -25,7 +37,7 @@ class ListBooks extends Component{
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {currentlyReadingBooks.map((book) => (
-                    <Book book={book}/>
+                    <Book key={book.id} book={book} onChangeShelf={this.updateBookShelf}/>
                   ))}
                 </ol>
               </div>
@@ -35,7 +47,7 @@ class ListBooks extends Component{
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {wantToReadBooks.map((book) => (
-                    <Book book={book}/>
+                    <Book key={book.id} book={book} onChangeShelf={this.updateBookShelf}/>
                   ))}
                 </ol>
               </div>
@@ -45,7 +57,7 @@ class ListBooks extends Component{
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {readBooks.map((book) => (
-                    <Book book={book}/>
+                    <Book key={book.id} book={book} onChangeShelf={this.updateBookShelf}/>
                   ))}
                 </ol>
               </div>
