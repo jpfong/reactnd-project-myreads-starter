@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 
 class ListBooks extends Component{
   static propTypes = {
@@ -16,6 +16,7 @@ class ListBooks extends Component{
         books
       })
       // update in DB
+      BooksAPI.update(book, book.shelf)
     }
   }
 
