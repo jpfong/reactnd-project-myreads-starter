@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
+import { Link } from 'react-router-dom'
 
 class ListBooks extends Component{
   static propTypes = {
@@ -66,7 +67,7 @@ class ListBooks extends Component{
           </div>
         </div>
         <div className="open-search">
-          <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+          <Link to="/create">Add a book</Link>
         </div>
       </div>
     )
