@@ -1,28 +1,17 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
-import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
+
 
 class ListBooks extends Component{
   static propTypes = {
-    books: PropTypes.array.isRequired
-  }
-
-  updateBookShelf = (event, book) => {
-    if (event.target.value !== 'none') {
-      book.shelf = event.target.value
-      const {books} = this.props
-      this.setState({
-        books
-      })
-      // update in DB
-      BooksAPI.update(book, book.shelf)
-    }
+    books: PropTypes.array.isRequired,
+    updateBookShelf: PropTypes.func.isRequired
   }
 
   render() {
-    const {books} = this.props
+    const {books, updateBookShelf} = this.props
     let currentlyReadingBooks = books.filter(b => b.shelf === 'currentlyReading')
     let wantToReadBooks = books.filter(b => b.shelf === 'wantToRead')
     let readBooks = books.filter(b => b.shelf === 'read')
@@ -39,7 +28,7 @@ class ListBooks extends Component{
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {currentlyReadingBooks.map((book) => (
-                    <Book key={book.id} book={book} onChangeShelf={this.updateBookShelf}/>
+                    <Book key={book.id} book={book} onChangeShelf={updateBookShelf}/>
                   ))}
                 </ol>
               </div>
@@ -49,7 +38,7 @@ class ListBooks extends Component{
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {wantToReadBooks.map((book) => (
-                    <Book key={book.id} book={book} onChangeShelf={this.updateBookShelf}/>
+                    <Book key={book.id} book={book} onChangeShelf={updateBookShelf}/>
                   ))}
                 </ol>
               </div>
@@ -59,7 +48,7 @@ class ListBooks extends Component{
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {readBooks.map((book) => (
-                    <Book key={book.id} book={book} onChangeShelf={this.updateBookShelf}/>
+                    <Book key={book.id} book={book} onChangeShelf={updateBookShelf}/>
                   ))}
                 </ol>
               </div>

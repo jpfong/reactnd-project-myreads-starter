@@ -23,16 +23,29 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBookShelf = (event, book) => {
+    if (event.target.value !== 'none') {
+      book.shelf = event.target.value
+      const {books} = this.state
+      this.setState({
+        books
+      })
+      // update in DB
+      BooksAPI.update(book, book.shelf)
+    }
+  }
+
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
           <ListBooks
             books={this.state.books}
+            updateBookShelf={this.updateBookShelf}
           />
         )}/>
         <Route path="/create" render={() => (
-          <SearchBooks/>
+          <SearchBooks updateBookShelf={this.updateBookShelf}/>
         )}/>
       </div>
     )
