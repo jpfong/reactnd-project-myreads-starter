@@ -2,11 +2,10 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
 import { Link } from 'react-router-dom'
-
+import * as BooksAPI from './BooksAPI'
 
 class ListBooks extends Component{
   static propTypes = {
-    books: PropTypes.array.isRequired,
     updateBookShelf: PropTypes.func.isRequired
   }
 
@@ -15,14 +14,14 @@ class ListBooks extends Component{
   }
 
   componentDidMount() {
-    const {books} = this.props
-    this.setState({
-      books
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
     })
   }
 
   render() {
-    const {books, updateBookShelf} = this.props
+    const {updateBookShelf} = this.props
+    const {books} = this.state
     let currentlyReadingBooks = books.filter(b => b.shelf === 'currentlyReading')
     let wantToReadBooks = books.filter(b => b.shelf === 'wantToRead')
     let readBooks = books.filter(b => b.shelf === 'read')

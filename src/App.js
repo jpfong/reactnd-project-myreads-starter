@@ -16,12 +16,6 @@ class BooksApp extends React.Component {
     books: []
   }
 
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
-  }
-
   updateBookShelf = (event, book) => {
     if (event.target.value) {
       book.shelf = event.target.value
@@ -39,7 +33,6 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route exact path="/" render={() => (
           <ListBooks
-            books={this.state.books}
             updateBookShelf={this.updateBookShelf}
           />
         )}/>
