@@ -7,7 +7,8 @@ import Book from './Book'
 class SearchBooks extends Component{
 
   static propTypes = {
-    updateBookShelf: PropTypes.func.isRequired
+    updateBookShelf: PropTypes.func.isRequired,
+    booksInShelves: PropTypes.array.isRequired
   }
 
   state = {
@@ -30,7 +31,14 @@ class SearchBooks extends Component{
 
   render() {
     const {books} = this.state
-    const {updateBookShelf} = this.props
+    const {booksInShelves, updateBookShelf} = this.props
+    books.map((book) => {
+      const bookInShelf = booksInShelves.find(b => b.id === book.id)
+      if (bookInShelf) {
+        book.shelf = bookInShelf.shelf
+      }
+      return book
+    })
 
     return (
       <div className="search-books">
