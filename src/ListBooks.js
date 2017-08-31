@@ -10,11 +10,6 @@ class ListBooks extends Component{
     updateBookShelf: PropTypes.func.isRequired
   }
 
-  componentDidMount() {
-    console.log('mount')
-    this.forceUpdate()
-  }
-
   render() {
     const {books, updateBookShelf} = this.props
     let currentlyReadingBooks = books.filter(b => b.shelf === 'currentlyReading')

@@ -22,18 +22,16 @@ class BooksApp extends React.Component {
     })
   }
 
-  refreshState() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
-  }
-
   updateBookShelf = (event, book) => {
     if (event.target.value) {
       book.shelf = event.target.value
       // update in DB
       BooksAPI.update(book, book.shelf).then(() => {
         const {books} = this.state
+        const bookInShelf = books.find(b => book.id === b.id)
+        if (!bookInShelf) {
+          books.concat(book)
+        }
         this.setState({
           books
         })
@@ -48,7 +46,6 @@ class BooksApp extends React.Component {
           <ListBooks
             books={this.state.books}
             updateBookShelf={this.updateBookShelf}
-            refreshState={this.refreshState}
           />
         )}/>
         <Route path="/search" render={() => (

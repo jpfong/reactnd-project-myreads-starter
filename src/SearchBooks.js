@@ -36,6 +36,8 @@ class SearchBooks extends Component{
       const bookInShelf = booksInShelves.find(b => b.id === book.id)
       if (bookInShelf) {
         book.shelf = bookInShelf.shelf
+      } else {
+        book.shelf = 'none'
       }
       return book
     })
