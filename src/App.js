@@ -13,7 +13,6 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: true,
     books: []
   }
 
@@ -24,7 +23,7 @@ class BooksApp extends React.Component {
   }
 
   updateBookShelf = (event, book) => {
-    if (event.target.value !== 'none') {
+    if (event.target.value) {
       book.shelf = event.target.value
       const {books} = this.state
       this.setState({

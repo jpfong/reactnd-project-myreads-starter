@@ -10,6 +10,17 @@ class ListBooks extends Component{
     updateBookShelf: PropTypes.func.isRequired
   }
 
+  state = {
+    books: []
+  }
+
+  componentDidMount() {
+    const {books} = this.props
+    this.setState({
+      books
+    })
+  }
+
   render() {
     const {books, updateBookShelf} = this.props
     let currentlyReadingBooks = books.filter(b => b.shelf === 'currentlyReading')
